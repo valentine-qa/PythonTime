@@ -7,7 +7,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='module')
 def browser_managment():
     browser.config.driver_name = 'chrome' #Простяцкий варик
 
