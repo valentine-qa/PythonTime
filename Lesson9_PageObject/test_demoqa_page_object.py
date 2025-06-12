@@ -1,8 +1,24 @@
-import os
 import time
 
 import pytest
 from selene import browser, by, have, be, command
+
+from Lesson9_PageObject.demoqa_page_object import resources
+
+class RegistrationPage:
+
+    def open(self):
+        browser.open('https://demoqa.com/automation-practice-form')
+
+    def type_first_name(self, name):
+        browser.element('#firstName').type(f'{name}')
+
+    def fill_date_of_birth(self, year, month, day):
+        browser.element("#dateOfBirthInput").click()
+        browser.element(".react-datepicker__month-select").type(month)
+        browser.element(".react-datepicker__year-select").type(year)
+        browser.all(".react-datepicker__day:not(.react-datepicker__day--outside-month)").element_by(
+            have.text(day)).click()
 
 
 @pytest.fixture(scope="function")
@@ -17,32 +33,32 @@ def browser_params():
     time.sleep(4)
     browser.quit()
 
+
 def test_demoqa(browser_params):
+    registration_page = RegistrationPage()
+    #Open page
+    registration_page.open()
 
-    browser.open('https://demoqa.com/automation-practice-form')
+    registration_page.type_first_name('valentine')
 
-    browser.element('#firstName').type('valentine')
     browser.element('#lastName').type('borodich')
     browser.element('#userEmail').type('valentineqa@gmail.com')
 
-    # browser.element('#genterWrapper').element(by.text("Male")).click()
+    browser.element('#genterWrapper').element(by.text("Male")).click()
     # browser.all('[name=gender]').element_by(have.value('Male')).click()
     # browser.element('[name=gender][value=Male]').click()
-    browser.all('[for^=gender-radio]').element_by(have.text('Male')).click()
+    # browser.all('[for^=gender-radio]').element_by(have.text('Male')).click()
     # browser.element('[name=gender]').element('..').click()
     browser.element('#userNumber').type('4477217351')
 
-    browser.element("#dateOfBirthInput").click()
-    browser.element(".react-datepicker__month-select").element("[value='4']").click()
-    browser.element(".react-datepicker__year-select").element("[value='2000']").click()
-    browser.all(".react-datepicker__day:not(.react-datepicker__day--outside-month)").element_by(have.text('13')).click()
+    registration_page.fill_date_of_birth('2000', 'May', '13')
 
     browser.element('#subjectsInput').type('Maths').press_enter()
     browser.element('#currentAddress').type('Minsk, Belarus')
 
     # browser.element("#hobbiesWrapper").element("label[for=hobbies-checkbox-1]").click()
     browser.element("#hobbiesWrapper [for=hobbies-checkbox-1]").click()
-    browser.element('input[id=uploadPicture]').send_keys(os.path.abspath('../Lesson9_PageObject/picture.png'))
+    browser.element('input[id=uploadPicture]').send_keys(resources.img_path('picture.png'))
 
     browser.element('#state').click()
     # browser.element("#stateCity-wrapper").element('#react-select-3-option-0').click()
