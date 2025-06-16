@@ -9,7 +9,7 @@ class Status(Enum):
 
 
 @dataclass
-class User:
+class Users:
     name: str
     age: int
     status: Status

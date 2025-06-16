@@ -1,5 +1,6 @@
 import dataclasses
 import os
+from multiprocessing.resource_tracker import register
 
 from selene import browser, be, have, by, command
 
@@ -11,7 +12,9 @@ class User:
     user_email: str
     user_gender: str
     user_phone: str
-    user_birthdate: str
+    user_birthday_day: str
+    user_birthday_month: str
+    user_birthday_year: str
     user_subject: str
     user_hobby: str
     user_picture: str
@@ -70,8 +73,6 @@ class RegistrationPage:
     def click_submit(self):
         browser.element("#submit").perform(command.js.click)
 
-
-
     def should_have_registered_user_with(self, full_name, user_mail, user_gender, user_number, user_birth,
                                          user_subject, user_hobby, user_picture, user_address,
                                          user_city):
@@ -93,12 +94,35 @@ class RegistrationPage:
         )
 
 
+class SimpleUserRegistrationPage:
+    def __init__(self):
+        self.first_name = browser.element('#firstName')
+        self.last_name = browser.element('#lastName')
+        self.user_email = browser.element('#userEmail')
+        self.user_gender = browser.all('[for^=gender-radio]')
+        self.user_number = browser.element('#userNumber')
 
+    def open_website(self):
+        browser.open('https://demoqa.com/automation-practice-form')
+        return self
+    def fill_first_name(self, first_name):
+        self.first_name.type(first_name)
+        return self
 
+    def fill_last_name(self, last_name):
+        self.last_name.type(last_name)
+        return self
 
+    def fill_email(self, user_email):
+        self.user_email.type(user_email)
+        return self
 
+    def choose_gender(self, user_gender):
+        self.user_gender.element_by(have.text(user_gender)).click()
 
-
+    def fill_phone(self, user_phone):
+        self.user_number.type(user_phone)
+        return self
 
 
 
