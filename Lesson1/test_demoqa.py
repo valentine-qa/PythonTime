@@ -5,17 +5,7 @@ import pytest
 from selene import browser, by, have, be, command
 
 
-@pytest.fixture(scope="function")
-def browser_params():
-    browser.config.hold_browser_open = True
-    browser.config.window_width = 1280
-    browser.config.window_height = 800
-    browser.config.driver_name = 'chrome'
 
-    yield
-
-    time.sleep(4)
-    browser.quit()
 
 def test_demoqa(browser_params):
 
@@ -42,7 +32,7 @@ def test_demoqa(browser_params):
 
     # browser.element("#hobbiesWrapper").element("label[for=hobbies-checkbox-1]").click()
     browser.element("#hobbiesWrapper [for=hobbies-checkbox-1]").click()
-    browser.element('input[id=uploadPicture]').send_keys(os.path.abspath('../Lesson9_PageObject/picture.png'))
+    browser.element('input[id=uploadPicture]').send_keys(os.path.abspath('../RegistationFormAutotests/picture.png'))
 
     browser.element('#state').click()
     # browser.element("#stateCity-wrapper").element('#react-select-3-option-0').click()

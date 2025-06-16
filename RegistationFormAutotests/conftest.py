@@ -1,5 +1,4 @@
-import dataclasses
-import os
+import time
 
 import pytest
 from selene import browser
@@ -16,14 +15,3 @@ def browser_params():
 
     time.sleep(4)
     browser.quit()
-
-@dataclasses.dataclass
-class User:
-    first_name: str
-    last_name: str
-    user_gender: str
-
-
-
-def img_path(img_path):
-    return
