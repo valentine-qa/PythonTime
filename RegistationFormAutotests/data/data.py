@@ -105,6 +105,7 @@ class SimpleUserRegistrationPage:
     def open_website(self):
         browser.open('https://demoqa.com/automation-practice-form')
         return self
+
     def fill_first_name(self, first_name):
         self.first_name.type(first_name)
         return self

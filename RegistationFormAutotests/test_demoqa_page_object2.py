@@ -32,9 +32,11 @@ def test_demoqa(browser_params):
     registration_page.choose_gender(valentine.user_gender)
     registration_page.type_number(valentine.user_phone)
     registration_page.fill_date_of_birth(valentine.user_birthday_year, valentine.user_birthday_month, valentine.user_birthday_day)
+
     registration_page.type_subject(valentine.user_subject)
     registration_page.choose_hobby(valentine.user_hobby)
     registration_page.upload_user_picture(valentine.user_picture)
+
     registration_page.type_current_address(valentine.user_current_address)
     registration_page.choose_state(valentine.user_state)
     registration_page.choose_city(valentine.user_city)
