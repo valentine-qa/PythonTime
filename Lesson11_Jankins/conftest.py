@@ -9,7 +9,7 @@ from selene import Browser, Config
 @pytest.fixture(scope='function')
 def setup_browser(request):
     options = Options()
-    selenoid_capabilities = {
+    capabilities = {
         "browserName": "chrome",
         "browserVersion": "127.0",
         "selenoid:options": {
@@ -17,18 +17,18 @@ def setup_browser(request):
             "enableVideo": True
         }
     }
-    options.capabilities.update(selenoid_capabilities)
+    options.capabilities.update(capabilities)
     driver = webdriver.Remote(
         command_executor=f"https://user1:1234@selenoid.autotests.cloud/wd/hub",
         options=options
     )
 
-    # browser = Browser(Config(driver))
-    # yield browser
-    #
+    browser = Browser(Config(driver))
+    yield browser
+
     # attach.add_screenshot(browser)
     # attach.add_logs(browser)
     # attach.add_html(browser)
     # attach.add_video(browser)
-    #
-    # browser.quit()
+
+    browser.quit()
